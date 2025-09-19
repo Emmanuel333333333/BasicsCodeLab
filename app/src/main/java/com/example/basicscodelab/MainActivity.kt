@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.basicscodelab.ui.theme.BasicsCodeLabTheme
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +46,7 @@ fun MyApp(
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
+    val expanded = remember { mutableStateOf(false) }
     Surface(
         color = MaterialTheme.colorScheme.primary,
         modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)
@@ -53,8 +56,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
                 Text(text = "Hello")
                 Text(text = name)
             }
-            ElevatedButton(onClick = { /* TODO: action */ }) {
-                Text("Show more")
+            ElevatedButton(
+                onClick = { expanded.value = !expanded.value },
+            ) {
+                Text(if (expanded.value) "Show less" else "Show more")
             }
         }
     }
